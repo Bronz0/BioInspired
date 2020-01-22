@@ -44,13 +44,13 @@ public class Largeur {
 			// actualiser le nombre maximal des clauses satisfaites
 			if (this.sat.nbClauseSatisfaite(actuel.getLitteraux()) > max) {
 				max = this.sat.nbClauseSatisfaite(actuel.getLitteraux());
-				System.out.println("max of sat clauses is : " + max);
+				System.out.println("nombre de clauses satisfaites : " + max);
 			}
 
 			// tester la satisfiabilite de la solution
 			boolean satisfiable = this.sat.test(actuel.getLitteraux());
 			// afficher la profondeur
-			System.out.println(actuel.getProfondeur());
+			//System.out.println(actuel.getProfondeur());
 			// si la solution est satisfiable
 			if (satisfiable) {
 				// afficher la solution

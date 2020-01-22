@@ -11,7 +11,7 @@ import com.bronzo.bioinsp.core.Sat;
  * @author M. BOUDISSA, github.com/bronz0
  *
  */
-public class HeuristiqueNbClauseSatisfaites extends Heuristique implements Comparator<Noeud>{
+public class HeuristiqueNbClauseSatisfaites extends Heuristique {
 	
 	private Sat sat;
 

@@ -84,11 +84,12 @@ public class Profondeur {
 
 							solutionFils.get(j).setValeur(tmp);
 						} else {
-							// sinon on copy just l'element du père
+							// sinon on copy just l'element du pere
 							solutionFils.get(j).setValeur(actuel.getLitteraux().get(j).getValeur());
 						}
 
 					}
+			
 					// creer le fils et incrementer la profondeur
 					Noeud fils = new Noeud(solutionFils, (short) (actuel.getProfondeur() + 1));
 					// creer un chainage avec la solution precedente
