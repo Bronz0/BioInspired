@@ -25,6 +25,8 @@ public class Profondeur extends Algorithme{
 		this.sat = sat;
 
 		int max = 0;
+		
+		 
 		// creation d'une pile ouverte
 		Stack<Noeud> ouverte = new Stack<Noeud>();
 
@@ -60,7 +62,7 @@ public class Profondeur extends Algorithme{
 				ArrayList<Litteral> solution = actuel.getLitteraux();
 				for (Litteral litteral : solution) {
 					System.out.println(litteral.getIndex() + "=" + litteral.getValeur());
-
+					
 				}
 				break;
 

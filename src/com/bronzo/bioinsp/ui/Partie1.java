@@ -11,6 +11,8 @@ import java.awt.font.TextAttribute;
 import java.io.File;
 import java.io.IOException;
 import java.text.AttributedString;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -23,11 +25,14 @@ import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 
+
+
 public class Partie1 extends JFrame  implements ActionListener {
 	public PanneauPartie1 container ;
 	public JLabel solution ,timer1,timer2,timer3,maxSat1,maxSat2,maxSat3,profActuelle1,profActuelle2,profActuelle3,ComplexiteT1,ComplexiteT2,ComplexiteT3,ComplexiteS1,ComplexiteS2,ComplexiteS3;
 	public JButton back,btnProfondeur,btnLargeur,btnAetoil;
 	public JTable table ;
+	public JScrollPane scrol;
 	public Partie1() {
 		// initialize attribute
 		container = new PanneauPartie1();
@@ -36,7 +41,7 @@ public class Partie1 extends JFrame  implements ActionListener {
 		timer2 = new JLabel("0");
 		timer3 = new JLabel("0");
 		
-		maxSat1 = new JLabel("0");
+		maxSat1 = new JLabel();
 		maxSat2 = new JLabel("0");
 		maxSat3 = new JLabel("0");
 		
@@ -59,21 +64,31 @@ public class Partie1 extends JFrame  implements ActionListener {
 		
 		solution = new JLabel();
 		// Table 
-		String[] enTetes = {"Indice","Variable","Valeur","Evaluation"};
-		Object[][] donnees =  {{"1","-X1","0","1"},
-							   {"2","-X2","1","0"},
-							   {"3","-X3","1","0"},
-							   {"4","-X4","1","0"},
-							   {"5","X5","1","1"},
-							   {"6","X5","1","1"},
-							   {"7","X5","1","1"},
-							   {"8","X5","1","1"},
-							   {"9","X5","1","1"},
-							   {"10","X5","1","1"},
-							   {"11","X5","1","1"},
-							   {"12","X5","1","1"},
+		String[] enTetes = {"Variable","Valeur"};
+		Object[][] donnees =  {  {"X1","1"},//1
+				 				 {"X1","1"},//2
+				 				 {"X1","1"},//3
+				 				 {"X1","1"},//4
+				 				 {"X1","1"},//5
+				 				 {"X1","1"},//6
+				 				 {"X1","1"},//7
+				 				 {"X1","1"},//8
+				 				 {"X1","1"},//9
+				 				 {"X1","1"},//10
+				 				 {"X1","1"},//11
+				 				 {"X1","1"},//12
+				 				 {"X1","1"},//13
+				 				 {"X1","1"},//14
+				 				 {"X1","1"},//15
+				 				 {"X1","1"},//16
+				 				 {"X1","1"},//17
+				 				 {"X1","1"},//18
+				 				 {"X1","1"},//19
+				 				 {"X1","1"},//20
+							  
 		};
 		table =new JTable(donnees,enTetes);
+	
 		
 		// initialize Frame
 		this.setTitle("Projet Bio-inspired Computing : Partie 1");
@@ -197,9 +212,9 @@ public class Partie1 extends JFrame  implements ActionListener {
         font = new Font("Georgia",1,16);
         table.getTableHeader().setFont(font);
         table.setRowHeight(35);
-        JScrollPane scrol = new JScrollPane(table);
+        scrol = new JScrollPane(table);
         scrol.setBounds(0, 350, 995,310);
-        
+        //scrol.setVisible(false);
         
         // Add Component 
         container.setLayout(null);
@@ -248,177 +263,29 @@ public class Partie1 extends JFrame  implements ActionListener {
 			new Accueil();
 		}else if (e.getSource() == btnProfondeur) {
 			System.out.println("profondeur");
-			new com.bronzo.bioinsp.heuristique.Main(this, "profondeur");
+			//new com.bronzo.bioinsp.heuristique.Main(this, "profondeur");
+			Thread t = new Thread(new RunImpl(this,"profondeur"));
+			t.start();
 		}else if (e.getSource() == btnLargeur) {
-			new com.bronzo.bioinsp.heuristique.Main(this, "largeur");
+			//new com.bronzo.bioinsp.heuristique.Main(this, "largeur");
+			Thread t = new Thread(new RunImpl(this,"largeur"));
+			t.start();
 		}else {
-			new com.bronzo.bioinsp.heuristique.Main(this, "a");
+			Thread t = new Thread(new RunImpl(this,"a"));
+			t.start();
+			//new com.bronzo.bioinsp.heuristique.Main(this, "a");
 		}
 	}
 }
-
-class PanneauPartie1 extends JPanel{
-	public void paintComponent(Graphics g){
-		Image img=null;
-		try {
-			// Background
-			img = ImageIO.read(new File(("./resources/BackgroundPartie1.jpg")));
-			g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-			// Text 1 : Algorithmes
-			g.setColor(Color.white);
-			Font font = new Font("Georgia", Font.PLAIN, 48);
-			AttributedString methodText= new AttributedString("Alogorithmes :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 350,50);
-			// Box1
-			g.setColor(Color.black);
-			g.fillRect(25, 80, 300, 205);
-			g.setColor(new Color(214, 214, 194));
-			g.fillRect(29,84, 292, 197 );
-			// Text 
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 16);
-			methodText= new AttributedString("Alogorithme : Par profondeur .");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 40,110);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.BOLD, 18);
-			methodText= new AttributedString("Détails :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 40,135);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Timer :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 45,155);		
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Nombre de clause satisfaisable(Max) :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 45,175);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Profondeur actuelle :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 45,195);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Complexité temporelle :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(),45,215);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Complexité spatiale :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(),45,235);
-			
-			
-			// Box2
-			g.setColor(Color.black);
-			g.fillRect(350, 80, 300, 205);
-			g.setColor(new Color(214, 214, 194));
-			g.fillRect(354,84, 292, 197);
-			// Text 
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 16);
-			methodText= new AttributedString("Alogorithme : Par largeur .");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 370,110);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.BOLD, 18);
-			methodText= new AttributedString("Détails :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 370,135);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Timer :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 380,155);	
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Nombre de clause satisfaisable(Max) :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 380,175);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Profondeur actuelle :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 380,195);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Complexité temporelle :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 380,215);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Complexité spatiale :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(),380,235);
-			
-			// Box3
-			g.setColor(Color.black);
-			g.fillRect(675, 80, 300, 205);
-			g.setColor(new Color(214, 214, 194));
-			g.fillRect(679,84, 292, 197);
-			// Text 
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 16);
-			methodText= new AttributedString("Alogorithme : A* .");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 690,110);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.BOLD, 18);
-			methodText= new AttributedString("Détails :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 690,135);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Timer :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 700,155);	
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Nombre de clause satisfaisable(Max) :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 700,175);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Profondeur actuelle :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 700,195);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Complexité temporelle :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 700,215);
-			/**************************Text******************************/
-			g.setColor(Color.black);
-			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Complexité spatiale :");
-			methodText.addAttribute(TextAttribute.FONT, font);
-			g.drawString(methodText.getIterator(), 700,235);
-	
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+class RunImpl implements Runnable {
+	Partie1 p1;
+	String method;
+	public RunImpl(Partie1 p1,String Method){
+	this.p1=p1;
+	this.method=Method;
 	}
-}
+	public void run() {
+		new com.bronzo.bioinsp.heuristique.Main(p1,method);
+	}
 
+}

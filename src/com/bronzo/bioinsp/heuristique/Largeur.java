@@ -48,12 +48,14 @@ public class Largeur extends Algorithme{
 			if (this.sat.nbClauseSatisfaite(actuel.getLitteraux()) > max) {
 				max = this.sat.nbClauseSatisfaite(actuel.getLitteraux());
 				System.out.println("nombre de clauses satisfaites : " + max);
+				p1.maxSat2.setText(""+max);
 			}
 
 			// tester la satisfiabilite de la solution
 			boolean satisfiable = this.sat.test(actuel.getLitteraux());
 			// afficher la profondeur
 			//System.out.println(actuel.getProfondeur());
+			p1.profActuelle2.setText(""+actuel.getProfondeur());
 			// si la solution est satisfiable
 			if (satisfiable) {
 				// afficher la solution
