@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.swing.JFrame;
+
 import com.bronzo.bioinsp.core.Clause;
 import com.bronzo.bioinsp.core.Data;
 import com.bronzo.bioinsp.core.Litteral;
 import com.bronzo.bioinsp.core.Noeud;
 import com.bronzo.bioinsp.core.Sat;
+import com.bronzo.bioinsp.ui.Partie1;
 
 /**
  * @author M. BOUDISSA, github.com/bronz0
@@ -32,7 +35,7 @@ public class Main {
 
     }
 
-	public static void main(String[] args) {
+	public Main(Partie1 p1, String algo) {
 		ArrayList<Litteral> litteraux = new ArrayList<Litteral>();
         ArrayList<Clause> clauses = new ArrayList<Clause>();
         try {
@@ -58,20 +61,34 @@ public class Main {
             // crée la racine de l'arbre de recherche
             Noeud racine = new Noeud(rand, (short) 0);
 
-          
-
-           //Profondeur profondeur = new Profondeur(racine, sat);
-           //Largeur largeur = new Largeur(racine, sat);
-
-
-
-//            // cree une huristique FrequenceHuristique
-            startTime = System.currentTimeMillis();
             Heuristique heuristique = new HeuristiqueNbClauseSatisfaites(sat);
-             A_ a = new A_(racine, sat, heuristique);
+          
+            startTime = System.currentTimeMillis();
+            if(algo.equals("profondeur")) {
+            	new Profondeur(racine, sat, p1);
+            }else if(algo.equals("largeur")) {
+            	new Largeur(racine, sat, p1);
+            }else if(algo.equals("a")){
+            	new A_(racine, sat, heuristique, p1);
+            }else {
+            	System.out.println("tyaaaaaaaaaaaaaaaaret");
+            }
             endTime = System.currentTimeMillis();
             time = endTime - startTime;
             System.out.println("time :"+time+"ms");
+            if(algo.equals("profondeur")) {
+            	p1.ComplexiteT1.setText(""+time+" ms");
+            }else if(algo.equals("largeur")) {
+            	p1.ComplexiteT2.setText(""+time+" ms");
+            }else if(algo.equals("a")){
+            	p1.ComplexiteT3.setText(""+time+" ms");
+            }else {
+            	System.out.println("tnaaaaaaaaawet");
+            }
+
+
+
+
         } catch (IOException iOException) {
             
             iOException.printStackTrace();

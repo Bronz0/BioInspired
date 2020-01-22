@@ -2,21 +2,24 @@ package com.bronzo.bioinsp.heuristique;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import com.bronzo.bioinsp.core.Litteral;
 import com.bronzo.bioinsp.core.Noeud;
 import com.bronzo.bioinsp.core.Sat;
+import com.bronzo.bioinsp.ui.Partie1;
 
 /**
  * @author M. BOUDISSA, github.com/bronz0
  *
  */
-public class Largeur {
+public class Largeur extends Algorithme{
 	// attributs
 	private Noeud racine;
 	private Sat sat;
 
 	// constructeur
-	public Largeur(Noeud racine, Sat sat) {
+	public Largeur(Noeud racine, Sat sat, Partie1 p1) {
 		this.racine = racine;
 		this.sat = sat;
 

@@ -4,20 +4,24 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+import javax.swing.JFrame;
+
 import com.bronzo.bioinsp.core.Litteral;
 import com.bronzo.bioinsp.core.Noeud;
 import com.bronzo.bioinsp.core.Sat;
+import com.bronzo.bioinsp.ui.Partie1;
 
 /**
  * @author M. BOUDISSA, github.com/bronz0
  *
  */
-public class A_ {
+public class A_ extends Algorithme{
 	// attributs
 	private Noeud racine;
 	private Sat sat;
 	
-	public A_(Noeud racine, Sat sat, Comparator heuristique) {
+	// contructeur
+	public A_(Noeud racine, Sat sat, Comparator heuristique, Partie1 p1) {
 		this.racine = racine;
 		this.sat = sat;
 		
@@ -40,8 +44,10 @@ public class A_ {
             if(this.sat.nbClauseSatisfaite(actuel.getLitteraux())>max) {
             	max = this.sat.nbClauseSatisfaite(actuel.getLitteraux());
             	System.out.println("max of sat clauses is : "+max);
+            	p1.maxSat3.setText(""+max);
             }
             System.out.println(actuel.getProfondeur());
+            p1.profActuelle3.setText(""+actuel.getProfondeur());
             boolean satisfaible = this.sat.test(actuel.getLitteraux());
 
             if (satisfaible) {

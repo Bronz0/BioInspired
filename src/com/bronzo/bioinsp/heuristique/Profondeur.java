@@ -3,21 +3,24 @@ package com.bronzo.bioinsp.heuristique;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import javax.swing.JFrame;
+
 import com.bronzo.bioinsp.core.Litteral;
 import com.bronzo.bioinsp.core.Noeud;
 import com.bronzo.bioinsp.core.Sat;
+import com.bronzo.bioinsp.ui.Partie1;
 
 /**
  * @author M. BOUDISSA, github.com/bronz0
  *
  */
-public class Profondeur {
+public class Profondeur extends Algorithme{
 	// attributs
 	private Noeud racine;
 	private Sat sat;
 
 	// constructeur
-	public Profondeur(Noeud racine, Sat sat) {
+	public Profondeur(Noeud racine, Sat sat, Partie1 p1) {
 		this.racine = racine;
 		this.sat = sat;
 
@@ -42,11 +45,12 @@ public class Profondeur {
 			if (this.sat.nbClauseSatisfaite(actuel.getLitteraux()) > max) {
 				max = this.sat.nbClauseSatisfaite(actuel.getLitteraux());
 				System.out.println("max of sat clauses is : " + max);
+				p1.maxSat1.setText(""+max);
 			}
 
 			// afficher la profondeur
 			// System.out.println(actuel.getProfondeur());
-
+			p1.profActuelle1.setText(""+actuel.getProfondeur());
 			// tester la satisfiabilite de la solution
 			boolean satisfiable = this.sat.test(actuel.getLitteraux());
 			// si la solution est satisfaible
