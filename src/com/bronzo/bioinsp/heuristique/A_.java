@@ -51,12 +51,17 @@ public class A_ extends Algorithme{
             boolean satisfaible = this.sat.test(actuel.getLitteraux());
 
             if (satisfaible) {
+            	p1.solution.setVisible(true);
+            	int k=0;
                 System.out.println("solution trouver");
                 ArrayList<Litteral> solution = actuel.getLitteraux();
                 for (Litteral litteral : solution) {
                     System.out.println(litteral.getIndex() + "=" + litteral.getValeur());
-
+                    p1.table3.getModel().setValueAt("X"+litteral.getIndex()+"", k, 0);
+                    p1.table3.getModel().setValueAt(litteral.getValeur()+"", k, 1);
+                    k++;
                 }
+                p1.scrol3.setVisible(true);
                 //sinon on génère 20/75.. fils pour le Noeud 
                 // ************ EXEMPLE *************
                 /*

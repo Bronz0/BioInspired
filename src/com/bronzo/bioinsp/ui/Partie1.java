@@ -3,23 +3,15 @@ package com.bronzo.bioinsp.ui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.TextAttribute;
-import java.io.File;
-import java.io.IOException;
-import java.text.AttributedString;
-import java.util.Observable;
-import java.util.Observer;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
@@ -27,12 +19,16 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 
 
+
+
 public class Partie1 extends JFrame  implements ActionListener {
 	public PanneauPartie1 container ;
 	public JLabel solution ,timer1,timer2,timer3,maxSat1,maxSat2,maxSat3,profActuelle1,profActuelle2,profActuelle3,ComplexiteT1,ComplexiteT2,ComplexiteT3,ComplexiteS1,ComplexiteS2,ComplexiteS3;
 	public JButton back,btnProfondeur,btnLargeur,btnAetoil;
-	public JTable table ;
-	public JScrollPane scrol;
+	public JTable table1,table2,table3 ;
+	public JScrollPane scrol1,scrol2,scrol3;
+	private Thread tProf = null,tLarg=null,tA_=null;
+	
 	public Partie1() {
 		// initialize attribute
 		container = new PanneauPartie1();
@@ -63,7 +59,7 @@ public class Partie1 extends JFrame  implements ActionListener {
 		btnAetoil = new JButton();
 		
 		solution = new JLabel();
-		// Table 
+		// tables  
 		String[] enTetes = {"Variable","Valeur"};
 		Object[][] donnees =  {  {"X1","1"},//1
 				 				 {"X1","1"},//2
@@ -87,7 +83,54 @@ public class Partie1 extends JFrame  implements ActionListener {
 				 				 {"X1","1"},//20
 							  
 		};
-		table =new JTable(donnees,enTetes);
+		Object[][] donnees2 =  {  {"X1","1"},//1
+				 {"X1","1"},//2
+				 {"X1","1"},//3
+				 {"X1","1"},//4
+				 {"X1","1"},//5
+				 {"X1","1"},//6
+				 {"X1","1"},//7
+				 {"X1","1"},//8
+				 {"X1","1"},//9
+				 {"X1","1"},//10
+				 {"X1","1"},//11
+				 {"X1","1"},//12
+				 {"X1","1"},//13
+				 {"X1","1"},//14
+				 {"X1","1"},//15
+				 {"X1","1"},//16
+				 {"X1","1"},//17
+				 {"X1","1"},//18
+				 {"X1","1"},//19
+				 {"X1","1"},//20
+			  
+		};
+		Object[][] donnees3 =  {  {"X1","1"},//1
+				 {"X1","1"},//2
+				 {"X1","1"},//3
+				 {"X1","1"},//4
+				 {"X1","1"},//5
+				 {"X1","1"},//6
+				 {"X1","1"},//7
+				 {"X1","1"},//8
+				 {"X1","1"},//9
+				 {"X1","1"},//10
+				 {"X1","1"},//11
+				 {"X1","1"},//12
+				 {"X1","1"},//13
+				 {"X1","1"},//14
+				 {"X1","1"},//15
+				 {"X1","1"},//16
+				 {"X1","1"},//17
+				 {"X1","1"},//18
+				 {"X1","1"},//19
+				 {"X1","1"},//20
+			  
+			};
+		table1 =new JTable(donnees,enTetes);
+		table2 =new JTable(donnees2,enTetes);
+		table3 =new JTable(donnees3,enTetes);
+		
 	
 		
 		// initialize Frame
@@ -98,7 +141,7 @@ public class Partie1 extends JFrame  implements ActionListener {
         
         // JLabel 
         solution.setText("Solution :");
-       // solution.setVisible(false);
+        solution.setVisible(false);
         solution.setFont(new Font("Georgia", Font.PLAIN, 48));
         solution.setBounds(410,220,230,200);
         
@@ -193,28 +236,72 @@ public class Partie1 extends JFrame  implements ActionListener {
         btnAetoil.setFocusPainted(false);
         btnAetoil.setBounds(780,245,80,30);
         btnAetoil.addActionListener(this);
-        // table
-        table.setBackground(new Color(255, 255, 255));
-        table.setForeground(Color.black);
-        table.getTableHeader().setBackground(new Color(36,165,233));
-        table.getTableHeader().setForeground(new Color(255, 255, 255));
-        // to remove vertical grid
-       // table.setShowVerticalLines(false);
+        // tables 
+        table1.setBackground(new Color(255, 255, 255));
+        table1.setForeground(Color.black);
+        table1.getTableHeader().setBackground(new Color(36,165,233));
+        table1.getTableHeader().setForeground(new Color(255, 255, 255));
         // to centre data 
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i=0;i<table.getColumnCount();i++) {
-        	table.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
+        for(int i=0;i<table1.getColumnCount();i++) {
+        	table1.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
         }
         // set Font
         Font font = new Font("Arial",5,16);
-        table.setFont(font);
+        table1.setFont(font);
         font = new Font("Georgia",1,16);
-        table.getTableHeader().setFont(font);
-        table.setRowHeight(35);
-        scrol = new JScrollPane(table);
-        scrol.setBounds(0, 350, 995,310);
-        //scrol.setVisible(false);
+        table1.getTableHeader().setFont(font);
+        table1.setRowHeight(35);
+        scrol1 = new JScrollPane(table1);
+        scrol1.setBounds(29,350, 292, 300);// changer positon
+        scrol1.setVisible(false);
+        
+        
+        // table 2
+        table2.setBackground(new Color(255, 255, 255));
+        table2.setForeground(Color.black);
+        table2.getTableHeader().setBackground(new Color(36,165,233));
+        table2.getTableHeader().setForeground(new Color(255, 255, 255));
+        // to centre data 
+        rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i=0;i<table2.getColumnCount();i++) {
+        	table2.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
+        }
+        // set Font
+        font = new Font("Arial",5,16);
+        table2.setFont(font);
+        font = new Font("Georgia",1,16);
+        table2.getTableHeader().setFont(font);
+        table2.setRowHeight(35);
+        scrol2 = new JScrollPane(table2);
+        scrol2.setBounds(354,350, 292, 300);// set position
+        scrol2.setVisible(false);
+        
+        
+        
+        
+        //table 3
+        table3.setBackground(new Color(255, 255, 255));
+        table3.setForeground(Color.black);
+        table3.getTableHeader().setBackground(new Color(36,165,233));
+        table3.getTableHeader().setForeground(new Color(255, 255, 255));
+        // to centre data 
+        rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i=0;i<table3.getColumnCount();i++) {
+        	table3.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
+        }
+        // set Font
+        font = new Font("Arial",5,16);
+        table3.setFont(font);
+        font = new Font("Georgia",1,16);
+        table3.getTableHeader().setFont(font);
+        table3.setRowHeight(35);
+        scrol3 = new JScrollPane(table3);
+        scrol3.setBounds(679,350, 292, 300);
+        scrol3.setVisible(false);
         
         // Add Component 
         container.setLayout(null);
@@ -245,7 +332,9 @@ public class Partie1 extends JFrame  implements ActionListener {
         container.add(btnLargeur);
         container.add(btnAetoil);
         
-        container.add(scrol);
+        container.add(scrol1);
+        container.add(scrol2);
+        container.add(scrol3);
         
         // Add Container to frame
         this.getContentPane().add(container);
@@ -259,21 +348,59 @@ public class Partie1 extends JFrame  implements ActionListener {
 		
 		if(e.getSource() == back) {
 			System.out.println("Back");
+			if(tProf != null) {
+				tProf.stop();
+			}
+			if(tLarg != null) {
+				tLarg.stop();
+			}
+			if(tA_ != null) {
+				tA_.stop();
+			}
 			this.setVisible(false);
 			new Accueil();
 		}else if (e.getSource() == btnProfondeur) {
 			System.out.println("profondeur");
 			//new com.bronzo.bioinsp.heuristique.Main(this, "profondeur");
-			Thread t = new Thread(new RunImpl(this,"profondeur"));
-			t.start();
+			//Thread t = new Thread(new RunImpl(this,"profondeur"));
+			//t.start();
+			
+			if(tProf == null) {
+				tProf = new Thread(new RunImpl(this,"profondeur"));
+				tProf.start();
+				
+			}else {
+				tProf.stop();
+				tProf = new Thread(new RunImpl(this,"profondeur"));
+				tProf.start();
+			}
+			
 		}else if (e.getSource() == btnLargeur) {
 			//new com.bronzo.bioinsp.heuristique.Main(this, "largeur");
-			Thread t = new Thread(new RunImpl(this,"largeur"));
-			t.start();
+			//Thread t = new Thread(new RunImpl(this,"largeur"));
+			//t.start();
+			if(tLarg == null) {
+				tLarg = new Thread(new RunImpl(this,"largeur"));
+				tLarg.start();
+				
+			}else {
+				tLarg.stop();
+				tLarg = new Thread(new RunImpl(this,"largeur"));
+				tLarg.start();
+			}
 		}else {
-			Thread t = new Thread(new RunImpl(this,"a"));
-			t.start();
+			//Thread t = new Thread(new RunImpl(this,"a"));
+			//t.start();
 			//new com.bronzo.bioinsp.heuristique.Main(this, "a");
+			if(tA_ == null) {
+				tA_ = new Thread(new RunImpl(this,"a"));
+				tA_.start();
+				
+			}else {
+				tA_.stop();
+				tA_ = new Thread(new RunImpl(this,"a"));
+				tA_.start();
+			}
 		}
 	}
 }
