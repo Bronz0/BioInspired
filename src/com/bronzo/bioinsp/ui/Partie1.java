@@ -28,7 +28,7 @@ public class Partie1 extends JFrame  implements ActionListener {
 	public JTable table1,table2,table3 ;
 	public JScrollPane scrol1,scrol2,scrol3;
 	private Thread tProf = null,tLarg=null,tA_=null;
-	
+	private int nbrVar=20;
 	public Partie1() {
 		// initialize attribute
 		container = new PanneauPartie1();
@@ -37,7 +37,7 @@ public class Partie1 extends JFrame  implements ActionListener {
 		timer2 = new JLabel("0");
 		timer3 = new JLabel("0");
 		
-		maxSat1 = new JLabel();
+		maxSat1 = new JLabel("0");
 		maxSat2 = new JLabel("0");
 		maxSat3 = new JLabel("0");
 		
@@ -61,72 +61,11 @@ public class Partie1 extends JFrame  implements ActionListener {
 		solution = new JLabel();
 		// tables  
 		String[] enTetes = {"Variable","Valeur"};
-		Object[][] donnees =  {  {"X1","1"},//1
-				 				 {"X1","1"},//2
-				 				 {"X1","1"},//3
-				 				 {"X1","1"},//4
-				 				 {"X1","1"},//5
-				 				 {"X1","1"},//6
-				 				 {"X1","1"},//7
-				 				 {"X1","1"},//8
-				 				 {"X1","1"},//9
-				 				 {"X1","1"},//10
-				 				 {"X1","1"},//11
-				 				 {"X1","1"},//12
-				 				 {"X1","1"},//13
-				 				 {"X1","1"},//14
-				 				 {"X1","1"},//15
-				 				 {"X1","1"},//16
-				 				 {"X1","1"},//17
-				 				 {"X1","1"},//18
-				 				 {"X1","1"},//19
-				 				 {"X1","1"},//20
-							  
-		};
-		Object[][] donnees2 =  {  {"X1","1"},//1
-				 {"X1","1"},//2
-				 {"X1","1"},//3
-				 {"X1","1"},//4
-				 {"X1","1"},//5
-				 {"X1","1"},//6
-				 {"X1","1"},//7
-				 {"X1","1"},//8
-				 {"X1","1"},//9
-				 {"X1","1"},//10
-				 {"X1","1"},//11
-				 {"X1","1"},//12
-				 {"X1","1"},//13
-				 {"X1","1"},//14
-				 {"X1","1"},//15
-				 {"X1","1"},//16
-				 {"X1","1"},//17
-				 {"X1","1"},//18
-				 {"X1","1"},//19
-				 {"X1","1"},//20
-			  
-		};
-		Object[][] donnees3 =  {  {"X1","1"},//1
-				 {"X1","1"},//2
-				 {"X1","1"},//3
-				 {"X1","1"},//4
-				 {"X1","1"},//5
-				 {"X1","1"},//6
-				 {"X1","1"},//7
-				 {"X1","1"},//8
-				 {"X1","1"},//9
-				 {"X1","1"},//10
-				 {"X1","1"},//11
-				 {"X1","1"},//12
-				 {"X1","1"},//13
-				 {"X1","1"},//14
-				 {"X1","1"},//15
-				 {"X1","1"},//16
-				 {"X1","1"},//17
-				 {"X1","1"},//18
-				 {"X1","1"},//19
-				 {"X1","1"},//20
-			  
-			};
+
+		Object[][] donnees = new Object[nbrVar][enTetes.length];
+		Object[][] donnees2 = new Object[nbrVar][enTetes.length];
+		Object[][] donnees3 = new Object[nbrVar][enTetes.length];
+		
 		table1 =new JTable(donnees,enTetes);
 		table2 =new JTable(donnees2,enTetes);
 		table3 =new JTable(donnees3,enTetes);
@@ -165,22 +104,22 @@ public class Partie1 extends JFrame  implements ActionListener {
         maxSat3.setBounds(930,165,60,15);
         
         profActuelle1.setFont(new Font("Georgia", Font.PLAIN, 12));
-        profActuelle1.setBounds(175,185,60,15);
+        profActuelle1.setBounds(175,185,130,15);
         
         profActuelle2.setFont(new Font("Georgia", Font.PLAIN, 12));
-        profActuelle2.setBounds(510,185,60,15);
+        profActuelle2.setBounds(510,185,130,15);
         
         profActuelle3.setFont(new Font("Georgia", Font.PLAIN, 12));
-        profActuelle3.setBounds(830,185,60,15);
+        profActuelle3.setBounds(830,185,130,15);
         
         ComplexiteT1.setFont(new Font("Georgia", Font.PLAIN, 12));
-        ComplexiteT1.setBounds(195,205,60,15);
+        ComplexiteT1.setBounds(195,205,130,15);
         
         ComplexiteT2.setFont(new Font("Georgia", Font.PLAIN, 12));
-        ComplexiteT2.setBounds(530,205,60,15);
+        ComplexiteT2.setBounds(530,205,130,15);
         
         ComplexiteT3.setFont(new Font("Georgia", Font.PLAIN, 12));
-        ComplexiteT3.setBounds(850,205,60,15);
+        ComplexiteT3.setBounds(850,205,130,15);
         
         ComplexiteS1.setFont(new Font("Georgia", Font.PLAIN, 12));
         ComplexiteS1.setBounds(175,225,60,15);
