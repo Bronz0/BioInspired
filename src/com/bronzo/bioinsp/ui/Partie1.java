@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 
 
+
 public class Partie1 extends JFrame  implements ActionListener {
 	public PanneauPartie1 container ;
 	public JLabel solution ,timer1,timer2,timer3,maxSat1,maxSat2,maxSat3,profActuelle1,profActuelle2,profActuelle3,ComplexiteT1,ComplexiteT2,ComplexiteT3,ComplexiteS1,ComplexiteS2,ComplexiteS3;
@@ -29,6 +30,7 @@ public class Partie1 extends JFrame  implements ActionListener {
 	public JScrollPane scrol1,scrol2,scrol3;
 	private Thread tProf = null,tLarg=null,tA_=null;
 	private int nbrVar=20;
+	public Thread timerThread1=null,timerThread2=null,timerThread3=null;
 	public Partie1() {
 		// initialize attribute
 		container = new PanneauPartie1();
@@ -86,13 +88,13 @@ public class Partie1 extends JFrame  implements ActionListener {
         
         
         timer1.setFont(new Font("Georgia", Font.PLAIN, 12));
-        timer1.setBounds(100,145,60,15);
+        timer1.setBounds(100,145,200,15);
         
         timer2.setFont(new Font("Georgia", Font.PLAIN, 12));
-        timer2.setBounds(435,145,60,15);
+        timer2.setBounds(435,145,200,15);
         
         timer3.setFont(new Font("Georgia", Font.PLAIN, 12));
-        timer3.setBounds(755,145,60,15);
+        timer3.setBounds(755,145,200,15);
         
         maxSat1.setFont(new Font("Georgia", Font.PLAIN, 12));
         maxSat1.setBounds(275,165,60,15);
@@ -296,6 +298,15 @@ public class Partie1 extends JFrame  implements ActionListener {
 			if(tA_ != null) {
 				tA_.stop();
 			}
+			if(timerThread1!=null) {
+				timerThread1.stop();
+			}
+			if(timerThread2!=null) {
+				timerThread2.stop();
+			}
+			if(timerThread3!=null) {
+				timerThread3.stop();
+			}
 			this.setVisible(false);
 			new Accueil();
 		}else if (e.getSource() == btnProfondeur) {
@@ -303,6 +314,15 @@ public class Partie1 extends JFrame  implements ActionListener {
 			//new com.bronzo.bioinsp.heuristique.Main(this, "profondeur");
 			//Thread t = new Thread(new RunImpl(this,"profondeur"));
 			//t.start();
+			if(timerThread1 == null) {
+				timerThread1 = new Thread(new TimerImpl(this,"profondeur"));
+				timerThread1.start();
+			}else {
+				timerThread1.stop();
+				timerThread1 = new Thread(new TimerImpl(this,"profondeur"));
+				timerThread1.start();
+			}
+			
 			
 			if(tProf == null) {
 				tProf = new Thread(new RunImpl(this,"profondeur"));
@@ -318,6 +338,16 @@ public class Partie1 extends JFrame  implements ActionListener {
 			//new com.bronzo.bioinsp.heuristique.Main(this, "largeur");
 			//Thread t = new Thread(new RunImpl(this,"largeur"));
 			//t.start();
+			if(timerThread2 == null) {
+				timerThread2 = new Thread(new TimerImpl(this,"largeur"));
+				timerThread2.start();
+			}else {
+				timerThread2.stop();
+				timerThread2 = new Thread(new TimerImpl(this,"largeur"));
+				timerThread2.start();
+			}
+			
+			
 			if(tLarg == null) {
 				tLarg = new Thread(new RunImpl(this,"largeur"));
 				tLarg.start();
@@ -331,6 +361,15 @@ public class Partie1 extends JFrame  implements ActionListener {
 			//Thread t = new Thread(new RunImpl(this,"a"));
 			//t.start();
 			//new com.bronzo.bioinsp.heuristique.Main(this, "a");
+			if(timerThread3 == null) {
+				timerThread3 = new Thread(new TimerImpl(this,"a"));
+				timerThread3.start();
+			}else {
+				timerThread3.stop();
+				timerThread3 = new Thread(new TimerImpl(this,"a"));
+				timerThread3.start();
+			}
+			
 			if(tA_ == null) {
 				tA_ = new Thread(new RunImpl(this,"a"));
 				tA_.start();
@@ -355,3 +394,49 @@ class RunImpl implements Runnable {
 	}
 
 }
+class TimerImpl implements Runnable {
+	Partie1 p1;
+	String method;
+public TimerImpl(Partie1 p1,String method){
+	this.p1=p1;
+	this.method=method;
+}
+	public void run() {
+		int ms=0,s=0,m=0,h=0;
+		while(true) {
+			try {
+				Thread.sleep(1);
+				if(ms>1000) {
+					ms=0;
+					s++;
+				}
+				if(s>60) {
+					ms=0;
+					s=0;
+					m++;
+				}
+				if(m>60) {
+					ms=0;
+					s=0;
+					m=0;
+					h++;
+				}
+				ms++;
+				if(method.equals("profondeur")) {
+					p1.timer1.setText(h+":h, "+m+":m, "+s+":s, "+ms+":ms.");					
+				}else if(method.equals("largeur")) {
+					p1.timer2.setText(h+":h, "+m+":m, "+s+":s, "+ms+":ms.");					
+				}else {
+					p1.timer3.setText(h+":h, "+m+":m, "+s+":s, "+ms+":ms.");	
+				}
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+
+}
+

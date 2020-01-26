@@ -91,10 +91,16 @@ public class Main {
             String timeConvert = timeConvert(time);
             System.out.println("time :"+time+"ms");
             if(algo.equals("profondeur")) {
+            	p1.timerThread1.stop();
+            	p1.timer1.setText("Fini");
             	p1.ComplexiteT1.setText(timeConvert);
             }else if(algo.equals("largeur")) {
+            	p1.timerThread2.stop();
+            	p1.timer2.setText("Fini");
             	p1.ComplexiteT2.setText(timeConvert);
             }else if(algo.equals("a")){
+            	p1.timerThread3.stop();
+            	p1.timer3.setText("Fini");
             	p1.ComplexiteT3.setText(timeConvert);
             }else {
             	System.out.println("tnaaaaaaaaawet");

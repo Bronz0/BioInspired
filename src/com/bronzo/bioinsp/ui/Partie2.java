@@ -2,26 +2,31 @@ package com.bronzo.bioinsp.ui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.TextAttribute;
-import java.io.File;
-import java.io.IOException;
-import java.text.AttributedString;
 
-import javax.imageio.ImageIO;
+
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 
+
+/* 
+ * change table header to 2 element it's initialization
+ * make attribute visibility to public  
+ * change visibility of scrolPane of table and JLabel solution 
+ * Create 2 thread one for Algorithm and the other for timer 
+ * create 2 class implement runnable 
+ * change width of JLabel that display result 
+ */
 public class Partie2 extends JFrame implements ActionListener{
 	PanneauPartie2 pane;
 	JButton back,btnGenetic;
