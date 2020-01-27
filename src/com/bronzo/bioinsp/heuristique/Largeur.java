@@ -48,22 +48,28 @@ public class Largeur extends Algorithme{
 			if (this.sat.nbClauseSatisfaite(actuel.getLitteraux()) > max) {
 				max = this.sat.nbClauseSatisfaite(actuel.getLitteraux());
 				System.out.println("nombre de clauses satisfaites : " + max);
+				p1.maxSat2.setText(""+max);
 			}
 
 			// tester la satisfiabilite de la solution
 			boolean satisfiable = this.sat.test(actuel.getLitteraux());
 			// afficher la profondeur
 			//System.out.println(actuel.getProfondeur());
+			p1.profActuelle2.setText(""+actuel.getProfondeur());
 			// si la solution est satisfiable
 			if (satisfiable) {
+				p1.solution.setVisible(true);
+            	int k=0;
 				// afficher la solution
 				System.out.println("solution trouver");
 				ArrayList<Litteral> solution = actuel.getLitteraux();
 				for (Litteral litteral : solution) {
 					System.out.println(litteral.getIndex() + "=" + litteral.getValeur());
-
+					p1.table2.getModel().setValueAt("X"+litteral.getIndex()+"", k, 0);
+                    p1.table2.getModel().setValueAt(litteral.getValeur()+"", k, 1);
+                    k++;
 				}
-
+				p1.scrol2.setVisible(true);
 				break;
 
 			} else { // sinon on generer N autres fils

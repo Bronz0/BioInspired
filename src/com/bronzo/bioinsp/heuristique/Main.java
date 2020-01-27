@@ -34,6 +34,19 @@ public class Main {
         return rand;
 
     }
+	public static String timeConvert(long time) {
+		if (time<1000) {
+			return time+"ms";
+		}else if(time >=1000 && time <60000) {
+			double second = time /1000;
+			return second+"s";
+		}else {
+			double s =time/1000;
+			double min = Math.round(s / 60);
+			s =  Math.round(s - min*60);
+			return min+" min"+s+"s";
+		}
+	}
 
 	public Main(Partie1 p1, String algo) {
 		ArrayList<Litteral> litteraux = new ArrayList<Litteral>();
@@ -75,13 +88,20 @@ public class Main {
             }
             endTime = System.currentTimeMillis();
             time = endTime - startTime;
+            String timeConvert = timeConvert(time);
             System.out.println("time :"+time+"ms");
             if(algo.equals("profondeur")) {
-            	p1.ComplexiteT1.setText(""+time+" ms");
+            	p1.timerThread1.stop();
+            	p1.timer1.setText("Fini");
+            	p1.ComplexiteT1.setText(timeConvert);
             }else if(algo.equals("largeur")) {
-            	p1.ComplexiteT2.setText(""+time+" ms");
+            	p1.timerThread2.stop();
+            	p1.timer2.setText("Fini");
+            	p1.ComplexiteT2.setText(timeConvert);
             }else if(algo.equals("a")){
-            	p1.ComplexiteT3.setText(""+time+" ms");
+            	p1.timerThread3.stop();
+            	p1.timer3.setText("Fini");
+            	p1.ComplexiteT3.setText(timeConvert);
             }else {
             	System.out.println("tnaaaaaaaaawet");
             }
@@ -94,6 +114,7 @@ public class Main {
             iOException.printStackTrace();
 
         }
+		
+		
 	}
-
 }

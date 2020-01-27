@@ -25,6 +25,8 @@ public class Profondeur extends Algorithme{
 		this.sat = sat;
 
 		int max = 0;
+		
+		 
 		// creation d'une pile ouverte
 		Stack<Noeud> ouverte = new Stack<Noeud>();
 
@@ -57,13 +59,18 @@ public class Profondeur extends Algorithme{
 			boolean satisfiable = this.sat.test(actuel.getLitteraux());
 			// si la solution est satisfaible
 			if (satisfiable) {
+				p1.solution.setVisible(true);
+            	int k=0;
 				// afficher la solution.
 				System.out.println("solution trouvee");
 				ArrayList<Litteral> solution = actuel.getLitteraux();
 				for (Litteral litteral : solution) {
 					System.out.println(litteral.getIndex() + "=" + litteral.getValeur());
-
+					p1.table1.getModel().setValueAt("X"+litteral.getIndex()+"", k, 0);
+                    p1.table1.getModel().setValueAt(litteral.getValeur()+"", k, 1);
+                    k++;
 				}
+				p1.scrol1.setVisible(true);
 				break;
 
 			} else { // sinon on generer N autres fils
