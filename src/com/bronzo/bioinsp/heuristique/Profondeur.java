@@ -30,6 +30,8 @@ public class Profondeur extends Algorithme{
 
 		// creation d'une liste fermee
 		ArrayList<Noeud> fermee = new ArrayList<Noeud>();
+		
+		// ajout de la racine dans ouverte
 		ouverte.add(racine);
 
 		// tantque la pile ouverte n'est pas vide
