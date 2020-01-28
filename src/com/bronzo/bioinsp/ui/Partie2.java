@@ -45,7 +45,7 @@ public class Partie2 extends JFrame implements ActionListener{
 		
 		
 		// initialize Frame
-		this.setTitle("Projet Bio-inspired Computing : Partie 1");
+		this.setTitle("Projet Bio-inspired Computing : Partie 2");
 		this.setSize(1010, 700);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

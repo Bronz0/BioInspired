@@ -102,6 +102,7 @@ public class Accueil extends JFrame implements ActionListener { //Done
 		}else {
 			//System.out.println("Partie 3");	
 			this.setVisible(false);
+			new Partie3();
 			
 		}
 		
