@@ -52,9 +52,9 @@ public class Main {
 		ArrayList<Litteral> litteraux = new ArrayList<Litteral>();
         ArrayList<Clause> clauses = new ArrayList<Clause>();
         try {
-             String sat20=".\\resources\\uf20-91\\uf20-01.cnf";
-             // String sat75=".\\resource\\uf75-325\\uf75-01.cnf";
-            Data satFileManager = new Data(sat20);
+             //String sat20=".\\resources\\uf20-91\\uf20-01.cnf";
+              String sat75=".\\resources\\uf75-325\\uf75-01.cnf";
+            Data satFileManager = new Data(sat75);
             
             // recuperation les litteraux
             litteraux = satFileManager.getLitteraux();

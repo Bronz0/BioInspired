@@ -57,7 +57,7 @@ public class PanneauPartie2 extends JPanel{
 			/**************************Text******************************/
 			g.setColor(new Color(36,165,233));
 			font = new Font("Georgia", Font.PLAIN, 12);
-			methodText= new AttributedString("- Profondeur actuelle :");
+			methodText= new AttributedString("- Nombre de générations :");
 			methodText.addAttribute(TextAttribute.FONT, font);
 			g.drawString(methodText.getIterator(), 275,195);
 			/**************************Text******************************/

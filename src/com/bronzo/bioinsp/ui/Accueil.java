@@ -89,18 +89,18 @@ public class Accueil extends JFrame implements ActionListener { //Done
 	public void actionPerformed(ActionEvent e) {
 		String str = ((JButton)e.getSource()).getText();
 		if(str.equals("Part One")) {
-			System.out.println("Partie 1");
+			//System.out.println("Partie 1");
 			this.setVisible(false);
 			new Partie1();
 		}
 		else if(str.equals("Part Two")) {
-			System.out.println("Partie 2");
+			//System.out.println("Partie 2");
 			this.setVisible(false);
 			new Partie2();
 			
 			this.setVisible(false);
 		}else {
-			System.out.println("Partie 3");	
+			//System.out.println("Partie 3");	
 			this.setVisible(false);
 			
 		}
