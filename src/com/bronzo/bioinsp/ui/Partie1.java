@@ -22,6 +22,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 
 
+/**
+ * @author N. GHALMI, github.com/p1po
+ *
+ */
 public class Partie1 extends JFrame  implements ActionListener {
 	private PanneauPartie1 container ;
 	public JLabel solution ,timer1,timer2,timer3,maxSat1,maxSat2,maxSat3,profActuelle1,profActuelle2,profActuelle3,ComplexiteT1,ComplexiteT2,ComplexiteT3,ComplexiteS1,ComplexiteS2,ComplexiteS3;

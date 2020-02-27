@@ -89,6 +89,11 @@ public class Sat {
         return i;
 
     }
+
+	public int frequence(Litteral literalP) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 

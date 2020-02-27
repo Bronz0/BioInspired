@@ -21,8 +21,11 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 
+/**
+ * @author N. GHALMI, github.com/p1po
+ *
+ */
 public class Accueil extends JFrame implements ActionListener { //Done 
-	
 	PanneauAccueil pane ;
 	JButton btnPartie1,btnPartie2,btnPartie3;
 

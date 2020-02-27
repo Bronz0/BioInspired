@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
+import com.bronzo.bioinsp.acs.Fourmi;
 import com.bronzo.bioinsp.core.Litteral;
 import com.bronzo.bioinsp.core.Noeud;
 import com.bronzo.bioinsp.core.Sat;
@@ -27,9 +28,6 @@ public class A_ extends Algorithme{
 		this.sat = sat;
 		
 		int max = 0;
-        // crée une list de priorté en se basent sur le Comparator<Noeud> "hirustique"
-        // défini par
-        // le devleopper
 		PriorityQueue<Noeud> ouverte = new PriorityQueue<>(heuristique);
         ouverte.add(racine);
         ArrayList<Noeud> fermet = new ArrayList<Noeud>();
@@ -63,32 +61,100 @@ public class A_ extends Algorithme{
                     k++;
                 }
                 p1.scrol3.setVisible(true);
-                //sinon on génère 20/75.. fils pour le Noeud 
-                // ************ EXEMPLE *************
-                /*
-                begin
-                  Si on a une instance     de 3 elements   0 1 0  on vas génère les instance comme suit
-                          0 1 0
                 
-                   /        |       \
-                
-                  1 1 0   0 0 0    0 1 1
-                
-                pusque dans notre cas on 20 element dans la solution de X1 jusqu'a X20  donc on doit genere 20 fils
-                end
-                 */
                 break;
             } else {
 
-                // recuperer la solution actuel est la mettre dans un tableau
-                //begin    
+                // recuperer la solution actuel est la mettre dans un tableau    
                 int[] solution = new int[actuel.getLitteraux().size()];
                 for (int i = 0; i < solution.length; i++) {
 
                     solution[i] = actuel.getLitteraux().get(i).getValeur();
                 }
-                //end
+                
+                // pour chque element dans la solution on genere un fils qui port l'inverse de cet element dans sa position voire EXEMPLE
+                for (int i = 0; i < actuel.getLitteraux().size(); i++) {
+                    //inverser l'element de la position actuel
+                    int tmp = solution[i] == 1 ? 0 : 1;
+                    //cree un fils        
+                    ArrayList<Litteral> solutionFils = new ArrayList<Litteral>();
 
+                    //clone le pere dans le fils sauf l'element de la position actuel
+                    for (int j = 0; j < actuel.getLitteraux().size(); j++) {
+                        solutionFils.add(new Litteral(actuel.getLitteraux().get(j)));
+
+                        // mettre l'inverse de l'element dans le fils 
+                        if (j == i) {
+
+                            solutionFils.get(j).setValeur(tmp);
+                        } else {
+                            //sinon on copy just l'element du pere
+                            solutionFils.get(j).setValeur(actuel.getLitteraux().get(j).getValeur());
+                        }
+
+                    }
+                    //crée un Noeud dans l'arbre de recherche
+                    Noeud fils = new Noeud(solutionFils, (short) (actuel.getProfondeur() + 1));
+                    //mettre la liaison entre le père est le fils
+                    fils.setPere(actuel);
+                    //ajouter le fils a l'ensemble ouverte
+                    ouverte.add(fils);
+
+                }
+                //ajouter le père a l'ensemble fermet
+                fermet.add(actuel);
+
+            }
+
+        }
+
+	}
+
+	public A_(Noeud racine, Sat sat, Comparator heuristique, Fourmi f) {
+		this.racine = racine;
+		this.sat = sat;
+		
+		int max = 0;
+		PriorityQueue<Noeud> ouverte = new PriorityQueue<>(heuristique);
+        ouverte.add(racine);
+        ArrayList<Noeud> fermet = new ArrayList<Noeud>();
+
+        while (!ouverte.isEmpty()) {
+
+            Noeud actuel = ouverte.poll();
+            //si l'instance existe dans l'ensemble fermet on ignore le traitment 
+            if (fermet.contains(actuel)) {
+
+                continue;
+            }
+            if(this.sat.nbClauseSatisfaite(actuel.getLitteraux())>max) {
+            	max = this.sat.nbClauseSatisfaite(actuel.getLitteraux());
+            	System.out.println("max of sat clauses is : "+max);
+            }
+            System.out.println(actuel.getProfondeur());
+            boolean satisfaible = this.sat.test(actuel.getLitteraux());
+
+            if (satisfaible) {
+            	int k=0;
+                System.out.println("solution trouver");
+                ArrayList<Litteral> solution = actuel.getLitteraux();
+                for (Litteral litteral : solution) {
+                    System.out.println(litteral.getIndex() + "=" + litteral.getValeur());
+                    k++;
+                }
+                f.setProf(actuel.getProfondeur());
+                f.setSolution(solution);
+                
+                break;
+            } else {
+
+                // recuperer la solution actuel est la mettre dans un tableau    
+                int[] solution = new int[actuel.getLitteraux().size()];
+                for (int i = 0; i < solution.length; i++) {
+
+                    solution[i] = actuel.getLitteraux().get(i).getValeur();
+                }
+                
                 // pour chque element dans la solution on genere un fils qui port l'inverse de cet element dans sa position voire EXEMPLE
                 for (int i = 0; i < actuel.getLitteraux().size(); i++) {
                     //inverser l'element de la position actuel

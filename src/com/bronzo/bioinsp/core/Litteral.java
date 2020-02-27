@@ -40,9 +40,5 @@ public class Litteral {
 	public void setValeur(int valeur) {
 		this.valeur = valeur;
 	}
-	
-	
-	// TODO: randomSelection(), getContraire(), removeChoisi();
-	
 
 }

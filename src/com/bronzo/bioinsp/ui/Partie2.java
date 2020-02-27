@@ -22,6 +22,10 @@ import com.bronzo.bioinsp.genitique.Ga;
 
 
 
+/**
+ * @author N. GHALMI, github.com/p1po
+ *
+ */
 public class Partie2 extends JFrame implements ActionListener{
 	private PanneauPartie2 pane;
 	private JButton back,btnGenetic,stopGenetic;

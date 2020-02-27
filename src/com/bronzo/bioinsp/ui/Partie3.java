@@ -16,6 +16,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import com.bronzo.bioinsp.genitique.Ga;
 
+/**
+ * @author N. GHALMI, github.com/p1po
+ *
+ */
 public class Partie3 extends JFrame implements ActionListener {
 	private PanneauPartie3 pane;
 	private JButton back,btnAnt,stopAnt;

@@ -12,6 +12,10 @@ import java.text.AttributedString;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+/**
+ * @author N. GHALMI, github.com/p1po
+ *
+ */
 public class PanneauPartie3 extends JPanel {
 	public void paintComponent(Graphics g){
 		Image img=null;

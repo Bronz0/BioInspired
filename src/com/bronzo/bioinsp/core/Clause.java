@@ -12,6 +12,7 @@ public class Clause {
 	// attributs
 	private ArrayList<Litteral> litteraux;
 	
+
 	// constructeurs
 	public Clause(ArrayList<Litteral> litteraux) {
 		this.litteraux = litteraux;
@@ -20,7 +21,16 @@ public class Clause {
 	public Clause(Clause c) {
 		this.litteraux = c.litteraux;
 	}
-
+	
+	// getters setters
+	public ArrayList<Litteral> getLitteraux() {
+		return litteraux;
+	}
+	
+	public void setLitteraux(ArrayList<Litteral> litteraux) {
+		this.litteraux = litteraux;
+	}
+	
 	/**
 	 * verifie si la clause est satisfaite par la solution
 	 * 
